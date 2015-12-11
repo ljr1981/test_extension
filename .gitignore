@@ -8,6 +8,11 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+# Eiffel Generated
+EIFGENs
+exception_trace.log
+class_attribute.rc
+
 # Windows Installer files
 *.cab
 *.msi
