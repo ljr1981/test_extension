@@ -1,11 +1,11 @@
 # test_extension
 Extension library for Eiffel testing
 
-NOTE: These instructions are for Windows OS (not Linux--yet), so you may need to translate parts.
+*NOTE: These instructions are for Windows OS (not Linux--yet), so you may need to translate parts.*
 
-STEP: Clone this simple Eiffel library to your local GitHub folder.
+## STEP: Clone this simple Eiffel library to your local GitHub folder.
 
-STEP: Modify your project ECF XML file with the XML below:
+## STEP: Modify your project ECF XML file with the XML below:
 
 	<target name="test" extends="[Your_project_name]">
 		<description>[Your_project_description]</description>
@@ -26,9 +26,9 @@ STEP: Modify your project ECF XML file with the XML below:
 
 This new `test_target` will be subordinate to your primary project `target`.
 
-NOTE: There are a pair of dependencies in the XML above: 1) You will need a "test" folder subordinate to your primary project folder. 2) The `root_class` is set to class ANY and feature `default_create`. This is on purpose. You don't need anything else for tests.
+*NOTE: There are a pair of dependencies in the XML above: 1) You will need a "test" folder subordinate to your primary project folder. 2) The `root_class` is set to class ANY and feature `default_create`. This is on purpose. You don't need anything else for tests.*
 
-STEP: Ensure your TEST_SET classes have the following inheritance:
+## STEP: Ensure your TEST_SET classes have the following inheritance:
 
 inherit
 	EQA_TEST_SET
