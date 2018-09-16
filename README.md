@@ -51,3 +51,11 @@ inherit
 		end
 
 If you need to test features of a class that are exported to `{NONE}`, then change the export from `{NONE}` to `{TEST_SET_BRIDGE}`, which will allow only your `TEST_SET` classes to have access to otherwise non-exported features (as far as your primary project tartget system is concerned).
+
+## STEP: Using the Configuration
+
+As noted in the Goal section (above), it is desirable to have testing files and other artifacts isolated to the `test` folder. This includes data files, picture files, or other artifacts related only to testing.
+
+When you create a new `{?_TEST_SET}` class, you will want to store/save this class in the `test` folder, which can be accomplished through Eiffel Studio itself. Other files consumed by test routines or created by them will need to be coded in a way where those files are properly stored somewhere in your `test` folder (or a subordinate folder of your choosing). The Auto Test facility of Eiffel Studio will not do this for you. Left to itself, Eiffel Studio will look in the project root folder (directory) for files it consume and will save files produced to the same. Therefore, you will need to create code that is aware of your `test` folder.
+
+*NOTE: To this end--I am considering writing a feature on TEST_SET_BRIDGE that knows about the `test` folder and will create a `{PATH}` and `{DIRECTORY}` object as a convenience for you to call as you have need.
