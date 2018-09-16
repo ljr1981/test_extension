@@ -28,4 +28,12 @@ note
 class
 	TEST_SET_BRIDGE
 
+feature -- Operations
+
+	test_folder: PATH
+			-- A path targeted at the `test' folder of current project.
+		once
+			create Result.make_from_string ({OPERATING_ENVIRONMENT}.current_directory_name_representation + {OPERATING_ENVIRONMENT}.directory_separator.out + "test")
+		end
+
 end
