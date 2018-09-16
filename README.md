@@ -1,6 +1,10 @@
 # test_extension
 Extension library for Eiffel testing
 
+## GOAL: Create Isolated Testing Environment in Eiffel Studio
+
+The goal is to have a "test target", which is completely isolated from your primary project (or library) code, such that your test code is never crossed or mixed with your primary. The way towards the goal includes having a `test` folder (directory) immediately subordinate to your primary project folder, where you will store any classes related to testing (i.e. test classes and classes used for testing like `mocks` and so on). This folder may also contain data or other files, which are relevant to testing, but not to delivery of your software.
+
 *NOTE: These instructions are for Windows OS (not Linux--yet), so you may need to translate parts.*
 
 ## STEP: Clone this simple Eiffel library to your local GitHub folder.
