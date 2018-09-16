@@ -46,4 +46,4 @@ inherit
 			default_create
 		end
 
-If you need to test features of a class that are exported to {NONE}, then change the export from {NONE} to {TEST_SET_BRIDGE}, which will allow only your TEST_SET classes to have access to otherwise non-exported features (as far as your primary project tartget system is concerned).
+If you need to test features of a class that are exported to `{NONE}`, then change the export from `{NONE}` to `{TEST_SET_BRIDGE}`, which will allow only your `TEST_SET` classes to have access to otherwise non-exported features (as far as your primary project tartget system is concerned).
