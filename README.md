@@ -24,7 +24,7 @@ STEP: Modify your project ECF XML file with the XML below:
 		<cluster name="tests" location=".\tests\" recursive="true"/>
 	</target>
 
-This new "test target" will be subordinate to your primary project "target".
+This new `test_target` will be subordinate to your primary project `target`.
 
 NOTE: There are a pair of dependencies in the XML above: 1) You will need a "test" folder subordinate to your primary project folder. 2) The `root_class` is set to class ANY and feature `default_create`. This is on purpose. You don't need anything else for tests.
 
