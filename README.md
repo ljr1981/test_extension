@@ -34,21 +34,21 @@ This new `test_target` will be subordinate to your primary project `target`.
 
 ## STEP: Ensure your TEST_SET classes have the following inheritance:
 
-inherit
-	EQA_TEST_SET
-		rename
-			assert as assert_old
-		end
+	inherit
+		EQA_TEST_SET
+			rename
+				assert as assert_old
+			end
 
-	EQA_COMMONLY_USED_ASSERTIONS
-		undefine
-			default_create
-		end
+		EQA_COMMONLY_USED_ASSERTIONS
+			undefine
+				default_create
+			end
 
-	TEST_SET_BRIDGE
-		undefine
-			default_create
-		end
+		TEST_SET_BRIDGE
+			undefine
+				default_create
+			end
 
 If you need to test features of a class that are exported to `{NONE}`, then change the export from `{NONE}` to `{TEST_SET_BRIDGE}`, which will allow only your `TEST_SET` classes to have access to otherwise non-exported features (as far as your primary project tartget system is concerned).
 
