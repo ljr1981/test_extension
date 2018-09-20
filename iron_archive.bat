@@ -1,0 +1,1 @@
+tar -jcvf ".\archive.tar.bz2" "." --exclude "./git" --exclude "./.git*" --exclude "./EIFGENs" --exclude "./*.bz2"

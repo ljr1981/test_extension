@@ -1,0 +1,15 @@
+package test_extension
+
+project
+	test_extension = "test_extension.ecf"
+
+note
+	title: Test Extension
+	description: "Test bridge extension and supporting features for the Eiffel testing library"
+
+	tags: Eiffel,test,extension,bridge
+	license: Eiffel Forum License v2 
+	copyright: 2018 Larry Rix
+	link[license]: http://www.eiffel.com/licensing/forum.txt external
+
+end
