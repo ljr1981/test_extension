@@ -50,3 +50,13 @@ class_attribute.rc
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+# Eiffel IRON Related
+iron_archive.bat
+iron_share_create.bat
+iron_share_update.bat
+LICENSE.txt
+tar_exclude_patterns.txt
+cast_iron.dat
+
