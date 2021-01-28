@@ -148,45 +148,52 @@ feature -- Support
 			end
 		end
 
-	assert_count_equal (a_tag: STRING; a_list_a, a_list_b: CHAIN [ANY])
-			--
+	assert_count_equal (a_tag: STRING; a, b: attached like finite_anchor)
+			-- Assert that `a' and `b' counts equal.
 		do
-			assert_32 (a_tag, a_list_a.count = a_list_b.count)
+			assert_integers_equal (a_tag, a.count, b.count)
 		end
 
-	assert_count_not_equal (a_tag: STRING; a_list_a, a_list_b: CHAIN [ANY])
-			--
+	assert_count_not_equal (a_tag: STRING; a, b: attached like finite_anchor)
+			-- Assert that `a' and `b' counts not equal.
 		do
-			assert_32 (a_tag, a_list_a.count /= a_list_b.count)
+			assert_integers_not_equal (a_tag, a.count, b.count)
 		end
 
-	assert_ad_hoc_tables_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
+feature -- Access: Assertions
+
+	assert_ad_hoc_tables_equal (a_tag: STRING; a, b: attached like collection_anchor)
 			-- Is ad-hoc TABLE `a' equal to `b'?
 		do
 			assert_32 (a_tag, is_ad_hoc_table_equal (a, b))
 		end
 
-	assert_ad_hoc_tables_not_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
+	assert_ad_hoc_tables_not_equal (a_tag: STRING; a, b: attached like collection_anchor)
 			-- Is ad-hoc TABLE `a' not equal to `b'?
 		do
 			assert_32 (a_tag, not is_ad_hoc_table_equal (a, b))
 		end
 
-	assert_tables_precisely_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
-			--
+	assert_tables_precisely_equal (a_tag: STRING; a, b: attached like collection_anchor)
+			-- Assert `a' and `b' match in item type, count, order, and content.
 		do
 			assert_32 (a_tag, is_table_precisely_equal (a, b))
 		end
 
-	assert_tables_not_precisely_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
-			--
+	assert_tables_not_precisely_equal (a_tag: STRING; a, b: attached like collection_anchor)
+			-- Assert `a' and `b' do not match in item type, count, order, or content.
 		do
 			assert_32 (a_tag, not is_table_precisely_equal (a, b))
 		end
 
 feature {NONE} -- Implementation: Assert TABLE Support
 
-	is_ad_hoc_table_equal (a, b: TABLE [ANY, ANY]): BOOLEAN
+	finite_anchor: detachable FINITE [detachable ANY]
+
+	collection_anchor: detachable TABLE [ANY, ANY]
+			-- FINITE [detachable ANY] type anchor
+
+	is_ad_hoc_table_equal (a, b: attached like collection_anchor): BOOLEAN
 			-- Are tables A and B equal with an ad-hoc order?
 			--	Equality based on B items same as A items regardless of order.
 		do
@@ -197,7 +204,7 @@ feature {NONE} -- Implementation: Assert TABLE Support
 						end
 		end
 
-	is_table_precisely_equal (a, b: TABLE [ANY, ANY]): BOOLEAN
+	is_table_precisely_equal (a, b: attached like collection_anchor): BOOLEAN
 			-- Is TABLE A precisely equal to B in order and content?
 		local
 			l_a_linear,

@@ -24,8 +24,8 @@ feature -- Test routines
 				]"
 			EIS: "name=assertCountEqual", "src=https://docs.python.org/3/library/unittest.html#test-cases"
 		do
-			assert_count_equal ("blah_tag", ("a,b,c").split (','), ("x,y,z").split (','))
-			assert_count_not_equal ("blah_tag", ("a,b,c").split (','), ("w,x,y,z").split (','))
+			assert_count_equal ("assert_count_equal", ("a,b,c").split (','), ("x,y,z").split (','))
+			assert_count_not_equal ("assert_count_not_equal", ("a,b,c").split (','), ("w,x,y,z").split (','))
 		end
 
 	assert_ad_hoc_tables_equal_tests
