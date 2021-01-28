@@ -2,7 +2,6 @@
 <system xmlns="http://www.eiffel.com/developers/xml/configuration-1-21-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-21-0 http://www.eiffel.com/developers/xml/configuration-1-21-0.xsd" name="test_extension" uuid="E54C4F16-9B60-11E8-98D0-529269FB1459" library_target="test_extension">
 	<target name="test_extension">
 		<root all_classes="true"/>
-		<cluster name="test_extension" location=".\" recursive="true"/>
 		<file_rule>
 			<exclude>/.git$</exclude>
 			<exclude>/.svn$</exclude>
@@ -20,8 +19,10 @@
 			<void_safety support="all" use="all"/>
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="decimal" location="$ISE_LIBRARY\contrib\library\math\decimal\decimal\decimal.ecf"/>
 		<library name="diff" location="$ISE_LIBRARY\library\diff\diff.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing.ecf"/>
+		<cluster name="test_extension" location=".\" recursive="true"/>
 	</target>
 	<target name="test" extends="test_extension">
 		<description>Test target for test_ext</description>

@@ -94,6 +94,15 @@ feature -- Test routines
 			assert_32 ("z_not_in_abc", not ("abc").has ('z'))
 		end
 
+	assert_almost_equals_test
+			-- Test `assert_almost_equal'.
+		do
+			assert_almost_equals_by_rounding ("six_places", 10.123456, 10.123456789, 6)		-- PASSES as expected.
+--			assert_almost_equals ("six_places", 10.123, 10.123456789, 6)		-- FAILS as expected.
+			assert_almost_equals_by_rounding ("six_places", 10.123, 10.123416789, 3)		-- PASSES due to rounding down.
+--			assert_almost_equals ("six_places", 10.123, 10.123456789, 3)		-- FAILS due to rounding up.
+		end
+
 end
 
 

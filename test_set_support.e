@@ -278,4 +278,31 @@ feature -- Access: Assertions
 			end
 		end
 
+feature -- Access: Almost Equal Assertions
+
+	assert_almost_equals_by_rounding (a_tag: STRING; a, b: REAL; a_places: NATURAL)
+			-- Assert that `a' and `b' REAL numbers are almost or about equal.
+		local
+			l_a,
+			l_b: DECIMAL
+		do
+			create l_a.make_from_string (a.out)
+			l_a := l_a.round_to (a_places.to_integer_32)
+			create l_b.make_from_string (b.out)
+			l_b := l_b.round_to (a_places.to_integer_32)
+			assert_equal (a_tag, l_a, l_b)
+		end
+
+	assert_almost_equals_by_truncation (a_tag: STRING; a, b: REAL; a_places: NATURAL)
+			-- Assert that `a' and `b' REAL numbers are almost or about equal.
+		local
+			l_a,
+			l_b: STRING
+		do
+			l_a := (a.truncated_to_integer.out)
+			l_a.replace_substring_all (".0", "")
+			l_a.append_string_general ( (a - a.truncated_to_integer).out )
+			assert_equal (a_tag, l_a, l_b)
+		end
+
 end
