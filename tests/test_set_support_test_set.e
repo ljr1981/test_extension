@@ -18,6 +18,10 @@ feature -- Test routines
 			testing: "covers/{TEST_SET_SUPPORT}.assert_count_equal",
 						"covers/{TEST_SET_SUPPORT}.assert_count_not_equal",
 						"execution/isolated"
+			history: "[
+				This assertion is inpired by Python3 "unittest" library assertion: assertListsEqual.
+				]"
+			EIS: "name=assertListsEqual", "src=https://docs.python.org/3/library/unittest.html#test-cases"
 		do
 			assert_count_equal ("blah_tag", ("a,b,c").split (','), ("x,y,z").split (','))
 			assert_count_not_equal ("blah_tag", ("a,b,c").split (','), ("w,x,y,z").split (','))
