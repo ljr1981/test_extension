@@ -160,7 +160,7 @@ feature -- Support
 			assert_integers_not_equal (a_tag, a.count, b.count)
 		end
 
-feature -- Access: Assertions
+feature -- Access: Collection Assertions
 
 	assert_ad_hoc_tables_equal (a_tag: STRING; a, b: attached like collection_anchor)
 			-- Is ad-hoc TABLE `a' equal to `b'?
@@ -224,6 +224,39 @@ feature {NONE} -- Implementation: Assert TABLE Support
 				l_a_linear.forth
 				l_b_linear.forth
 			end
+		end
+
+feature -- Access: Collection Item Assertions
+
+	assert_in (a_tag: STRING; a_item: ANY; a_collection: attached like collection_anchor)
+			-- Assert `a_item' is in `a_collection'.
+		local
+			l_tag: STRING
+		do
+			l_tag := a_tag.twin
+			if not a_collection.has (a_item) then
+				l_tag.append_character ('%N')
+				l_tag.append_string_general ("Expected `item' in `collection': %N")
+				l_tag.append_string_general ("Item: " + a_item.out + "%N----------------%N")
+				l_tag.append_string_general (a_collection.out)
+			end
+			assert_32 (l_tag, a_collection.has (a_item))
+		end
+
+	assert_not_in (a_tag: STRING; a_item: ANY; a_collection: attached like collection_anchor)
+			-- Assert `a_item' is not in `a_collection'.
+		local
+			l_tag: STRING
+		do
+			l_tag := a_tag.twin
+			if a_collection.has (a_item) then
+				l_tag.append_character ('%N')
+				l_tag.append_string_general ("Expected `item' not in `collection': %N")
+				l_tag.append_string_general ("Item: " + a_item.out + "%N----------------%N")
+				l_tag.append_string_general ("Collection:%N" + a_collection.out)
+				l_tag.append_character ('%N')
+			end
+			assert_32 (l_tag, not a_collection.has (a_item))
 		end
 
 feature -- Access: Assertions

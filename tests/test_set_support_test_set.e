@@ -79,6 +79,21 @@ feature -- Test routines
 			assert_tables_precisely_equal ("string_to_array_character", "abc", <<'a','b','c'>>)
 		end
 
+	assert_in_test
+			-- Test `assert_in' assertions
+		do
+			assert_in ("abc_has_a", 'a', "abc")
+			assert_in ("abc_array_has_a", 'a', <<'a','b','c'>>)
+				-- which is hardly different from ...
+			assert_32 ("same_as", ("abc").has ('a')) -- or
+			assert_32 ("same_as_2", (<<'a','b','c'>>).has ('a'))
+
+				-- The "notted" version is not helpful either ...
+			assert_not_in ("abc_has_not_z", 'z', "abc")
+				-- Hardly diffs from ...
+			assert_32 ("z_not_in_abc", not ("abc").has ('z'))
+		end
+
 end
 
 
