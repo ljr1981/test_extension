@@ -160,25 +160,66 @@ feature -- Support
 			assert_32 (a_tag, a_list_a.count /= a_list_b.count)
 		end
 
-	assert_tables_equal (a_tag: STRING; a_list_a, a_list_b: TABLE [ANY, ANY])
-			--
+	assert_ad_hoc_tables_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
+			-- Is ad-hoc TABLE `a' equal to `b'?
 		do
-			assert_32 (a_tag, across
-									a_list_a as ic_a
-								all
-									a_list_b.has (ic_a.item)
-								end)
+			assert_32 (a_tag, is_ad_hoc_table_equal (a, b))
 		end
 
-	assert_tables_not_equal (a_tag: STRING; a_list_a, a_list_b: TABLE [ANY, ANY])
+	assert_ad_hoc_tables_not_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
+			-- Is ad-hoc TABLE `a' not equal to `b'?
+		do
+			assert_32 (a_tag, not is_ad_hoc_table_equal (a, b))
+		end
+
+	assert_tables_precisely_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
 			--
 		do
-			assert_32 (a_tag, not (across
-									a_list_a as ic_a
-								all
-									a_list_b.has (ic_a.item)
-								end))
+			assert_32 (a_tag, is_table_precisely_equal (a, b))
 		end
+
+	assert_tables_not_precisely_equal (a_tag: STRING; a, b: TABLE [ANY, ANY])
+			--
+		do
+			assert_32 (a_tag, not is_table_precisely_equal (a, b))
+		end
+
+feature {NONE} -- Implementation: Assert TABLE Support
+
+	is_ad_hoc_table_equal (a, b: TABLE [ANY, ANY]): BOOLEAN
+			-- Are tables A and B equal with an ad-hoc order?
+			--	Equality based on B items same as A items regardless of order.
+		do
+			Result := across
+							a as ic_a
+						all
+							b.has (ic_a.item)
+						end
+		end
+
+	is_table_precisely_equal (a, b: TABLE [ANY, ANY]): BOOLEAN
+			-- Is TABLE A precisely equal to B in order and content?
+		local
+			l_a_linear,
+			l_b_linear: LINEAR [ANY]
+		do
+			l_a_linear := a.linear_representation
+			l_b_linear := b.linear_representation
+			Result := True -- Presumption of equality is the best we can do.
+
+			from
+				l_a_linear.start
+				l_b_linear.start
+			until
+				(l_a_linear.after or l_b_linear.after) or else (not Result)
+			loop
+				Result := l_a_linear.item = l_b_linear.item
+				l_a_linear.forth
+				l_b_linear.forth
+			end
+		end
+
+feature -- Access: Assertions
 
 	assert_strings_equal_for_item_for_key (a_tag: STRING; a_table: DYNAMIC_TABLE [detachable ANY, HASHABLE]; a_value: detachable ANY; a_key: HASHABLE)
 			-- Can `a_key' be found in `a_table'? If so, does `a_value' match found value?
