@@ -82,25 +82,49 @@ feature -- Test routines
 	assert_in_test
 			-- Test `assert_in' assertions
 		do
-			assert_in ("abc_has_a", 'a', "abc")
-			assert_in ("abc_array_has_a", 'a', <<'a','b','c'>>)
-				-- which is hardly different from ...
-			assert_32 ("same_as", ("abc").has ('a')) -- or
-			assert_32 ("same_as_2", (<<'a','b','c'>>).has ('a'))
+			assert_in ("", 'a', "abc")					-- The Python way
+			assert ("", ("abc").has ('a'))				-- The Eiffel way
+
+			assert_in ("", 'a', <<'a','b','c'>>)		-- The Python way
+			assert ("", (<<'a','b','c'>>).has ('a'))	-- The Eiffel way
 
 				-- The "notted" version is not helpful either ...
-			assert_not_in ("abc_has_not_z", 'z', "abc")
-				-- Hardly diffs from ...
-			assert_32 ("z_not_in_abc", not ("abc").has ('z'))
+			assert_not_in ("", 'z', "abc")				-- The Python way
+			assert ("", not ("abc").has ('z'))			-- The Eiffel way
 		end
 
 	assert_almost_equals_test
 			-- Test `assert_almost_equal'.
 		do
 			assert_almost_equals_by_rounding ("six_places", 10.123456, 10.123456789, 6)		-- PASSES as expected.
---			assert_almost_equals ("six_places", 10.123, 10.123456789, 6)		-- FAILS as expected.
-			assert_almost_equals_by_rounding ("six_places", 10.123, 10.123416789, 3)		-- PASSES due to rounding down.
---			assert_almost_equals ("six_places", 10.123, 10.123456789, 3)		-- FAILS due to rounding up.
+--			assert_almost_equals_by_rounding ("six_places", 10.123, 10.123456789, 6)		-- FAILS as expected.
+
+			assert_almost_equals_by_rounding ("three_places", 10.123, 10.123416789, 3)		-- PASSES due to rounding down.
+--			assert_almost_equals_by_rounding ("three_places", 10.123, 10.123456789, 3)		-- FAILS due to rounding up.
+		end
+
+	assert_almost_equal_by_limit_test
+			-- Test `assert_almost_equal_by_limit'.
+		do
+--			assert_almost_equal_by_limit ("0000005", 10.123456, 10.123456789, 0.0000005)	-- FAILS as discovered.
+			assert_almost_equal_by_limit ("000005", 10.123456, 10.123456789, 0.000005)
+			assert_almost_equal_by_limit ("00005", 10.123456, 10.123456789, 0.00005)
+			assert_almost_equal_by_limit ("0005", 10.123456, 10.123456789, 0.0005)
+			assert_almost_equal_by_limit ("005", 10.123456, 10.123456789, 0.005)
+			assert_almost_equal_by_limit ("05", 10.123456, 10.123456789, 0.05)
+			assert_almost_equal_by_limit ("5", 10.123456, 10.123456789, 0.5)
+			assert_almost_equal_by_limit ("1", 10.123456, 10.123456789, 0.1)
+		end
+
+	assert_almost_equal_by_rounded_places_test
+			-- Test `assert_almost_equal_by_rounded_places'.
+		do
+			assert_almost_equal_by_rounded_places ("1places", 10.123456, 10.123456789, 1)
+			assert_almost_equal_by_rounded_places ("2places", 10.123456, 10.123456789, 2)
+			assert_almost_equal_by_rounded_places ("3places", 10.123456, 10.123456789, 3)
+			assert_almost_equal_by_rounded_places ("4places", 10.123456, 10.123456789, 4)
+			assert_almost_equal_by_rounded_places ("5places", 10.123456, 10.123456789, 5)
+--			assert_almost_equal_by_rounded_places ("6places", 10.123456, 10.123456789, 6)	-- FAILS as expected.
 		end
 
 end

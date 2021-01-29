@@ -280,6 +280,35 @@ feature -- Access: Assertions
 
 feature -- Access: Almost Equal Assertions
 
+	assert_almost_equal_by_rounded_places (a_tag: STRING; a, b: REAL; a_places: NATURAL)
+			--
+		local
+			l_diff: REAL
+			l_decimal: DECIMAL
+			l_tag: STRING
+		do
+			l_diff := (a - b).abs
+			create l_decimal.make_from_string (l_diff.out)
+			l_decimal := l_decimal.round_to (a_places.to_integer_32)
+			if not l_decimal.is_zero then
+				l_tag := "Not almost equal.%N"
+				l_tag.append_string_general ("--------------%N")
+				l_tag.append_string_general ("Expected rounded diff of 0.0%N")
+				l_tag.append_string_general ("But got: " + l_decimal.out + "%N")
+				l_tag.append_string_general ("--------------%N")
+				l_tag.append_string_general ("a = " + a.out + "%N")
+				l_tag.append_string_general ("b = " + b.out + "%N")
+				l_tag.append_string_general ("diff = " + l_diff.out + "%N")
+				assert (l_tag, False)
+			end
+		end
+
+	assert_almost_equal_by_limit (a_tag: STRING; a, b, a_limit: REAL)
+			--
+		do
+			assert (a_tag, (a - b).abs <= a_limit)
+		end
+
 	assert_almost_equals_by_rounding (a_tag: STRING; a, b: REAL; a_places: NATURAL)
 			-- Assert that `a' and `b' REAL numbers are almost or about equal.
 		local
@@ -299,9 +328,10 @@ feature -- Access: Almost Equal Assertions
 			l_a,
 			l_b: STRING
 		do
-			l_a := (a.truncated_to_integer.out)
-			l_a.replace_substring_all (".0", "")
-			l_a.append_string_general ( (a - a.truncated_to_integer).out )
+			l_a := a.out
+
+			l_b := b.out
+
 			assert_equal (a_tag, l_a, l_b)
 		end
 
